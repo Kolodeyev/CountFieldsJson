@@ -1,5 +1,4 @@
-[
-  {
+{
     "name":"John",
     "city":"Berlin",
     "cars":[
@@ -8,18 +7,6 @@
     ],
     "job":"Teacher",
     "others": {
-      "cars": "bmw"
-    }
-  },
-  {
-    "name":"Mark",
-    "city":"Oslo",
-    "cars":[
-      "VW",
-      "Toyota"
-    ],
-    "job":"Doctor",
-    "others": {
       "people": "bmw",
       "cars": ["bmw", "Toyota", "volvo", "honda"],
       "temp": {
@@ -27,4 +14,3 @@
       }
     }
   }
-]
