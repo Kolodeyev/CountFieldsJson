@@ -1,5 +1,3 @@
-package org.kolodieiev;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
