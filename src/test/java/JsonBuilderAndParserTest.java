@@ -14,7 +14,7 @@ public class JsonBuilderAndParserTest {
 
     @Test
     public void tryToReadFromAbsentFile() {
-        JsonNode json =  JsonBuilderAndParser.readJsonFromFile("data000.json");
+        JsonNode json =  JsonTraverser.readJsonFromFile("data000.json");
         System.out.println("File is absent, json is null:" + json.isNull());
 
     }
@@ -22,7 +22,7 @@ public class JsonBuilderAndParserTest {
     @Test
     public void tryToReadFromValidFile() {
 
-        JsonNode json = JsonBuilderAndParser.readJsonFromFile("data.json");
+        JsonNode json = JsonTraverser.readJsonFromFile("data.json");
         System.out.println(json.toString());
 
     }

@@ -1,23 +1,29 @@
+import com.fasterxml.jackson.databind.JsonNode;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CheckingConditions {
 
-    private static int VALUE_COUNT = 0;
+    public static String EXPECTED_VALUE;
 
-    public static void countSpecificValueInFields(List<Object> foundFields, String expectedValue) {
+    public static int valueSize() {
 
-//        foundFields.stream()
+        List<String> foundValue = new ArrayList<>();
 
-        for (Object currentObject : foundFields) {
-            if (currentObject.toString().contains(expectedValue)) {
-                VALUE_COUNT += 1;
+        for (JsonNode currentJson : JsonTraverser.foundFields) {
+            if (currentJson.isArray()) {
+                for (JsonNode currentValue : currentJson) {
+                    if (currentValue.asText().equalsIgnoreCase(EXPECTED_VALUE)) {
+                        foundValue.add(currentValue.asText());
+                    }
+                }
             }
-            System.out.println(currentObject.toString());
+            if (currentJson.asText().equalsIgnoreCase(EXPECTED_VALUE)) {
+                foundValue.add(currentJson.asText());
+            }
         }
-
+        return foundValue.size();
     }
 
-    public static int getValueCount() {
-        return VALUE_COUNT;
-    }
 }

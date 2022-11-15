@@ -4,23 +4,22 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        String path = "data.json";
-//        String expectedName = "cars";
-//        String expectedValue = "bmw";
+        String path = "data.json";
+        JsonTraverser.EXPECTED_NAME = "cars";
+        CheckingConditions.EXPECTED_VALUE = "bmw";
 
-        String path = args[0];
-        String expectedName = args[1];
-        String expectedValue = args[2];
+//        String path = args[0];
+//        JsonTraverser.EXPECTED_NAME = args[1];
+//        CheckingConditions.EXPECTED_VALUE = args[2];
 
-        JsonNode jsonNode = JsonBuilderAndParser.readJsonFromFile(path);
-        JsonBuilderAndParser.findRepeatingFields(jsonNode);
-        CheckingConditions.countSpecificValueInFields(JsonBuilderAndParser.foundFields, expectedValue);
+        JsonNode jsonNode = JsonTraverser.readJsonFromFile(path);
+        JsonTraverser.traverseTree(jsonNode);
 
-        System.out.println("- found " + JsonBuilderAndParser.foundFields.size()
-                + " objects with field '" + expectedName + "'");
-        System.out.println("- found " + CheckingConditions.getValueCount()
+        System.out.println("- found " + JsonTraverser.foundFields.size()
+                + " objects with field '" + JsonTraverser.EXPECTED_NAME + "'");
+        System.out.println("- found " + CheckingConditions.valueSize()
                 + " objects where '"
-                + expectedName + "' equals '" + expectedValue + "'");
+                + JsonTraverser.EXPECTED_NAME + "' equals '" + CheckingConditions.EXPECTED_VALUE + "'");
 
     }
 }

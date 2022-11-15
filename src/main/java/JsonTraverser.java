@@ -10,9 +10,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class JsonBuilderAndParser {
+public class JsonTraverser {
 
-    public static List<Object> foundFields = new ArrayList<>();
+    public static String EXPECTED_NAME;
+
+    public static final List<JsonNode> foundFields = new ArrayList<>();
 
     /*
 
@@ -36,23 +38,23 @@ public class JsonBuilderAndParser {
     /*
 
      */
-    public static void findRepeatingFields(JsonNode jsonNode) {
+    public static void traverseTree(JsonNode jsonNode) {
 
         if (jsonNode.isArray()) {
             ArrayNode arrayNode = (ArrayNode) jsonNode;
             for (int i = 0; i < arrayNode.size(); i++) {
                 JsonNode element = arrayNode.get(i);
-                findRepeatingFields(element);
+                traverseTree(element);
             }
         } else if (jsonNode.isObject()) {
             Iterator<Map.Entry<String, JsonNode>> field = jsonNode.fields();
             while (field.hasNext()) {
                 Map.Entry<String, JsonNode> currentIterator = field.next();
-                if (currentIterator.getKey().equalsIgnoreCase("cars")) {
+                if (currentIterator.getKey().equalsIgnoreCase(EXPECTED_NAME)) {
                     foundFields.add(currentIterator.getValue());
-                } else if (currentIterator.getValue().isContainerNode()) {
-                    findRepeatingFields(currentIterator.getValue());
+                    continue;
                 }
+                traverseTree(currentIterator.getValue());
             }
         }
     }
