@@ -12,14 +12,26 @@ import java.util.Map;
 
 public class JsonTraverser {
 
-    public static String EXPECTED_NAME;
+    private final String JSON_PATH;
+    private String FIELD_NAME;
 
-    public static final List<JsonNode> foundFields = new ArrayList<>();
+
+    private final List<JsonNode> FIELD_TREE = new ArrayList<>();
+
+    public JsonTraverser(String jsonPath) {
+        this.JSON_PATH = jsonPath;
+    }
+
+    public List<JsonNode> readTree(String fieldName) {
+        this.FIELD_NAME = fieldName;
+        JsonNode jsonNode = readJsonFromFile(JSON_PATH);
+        return traverseJsonTree(jsonNode);
+    }
 
     /*
 
      */
-    public static JsonNode readJsonFromFile(String path) {
+    private JsonNode readJsonFromFile(String path) {
         FileReader file = null;
         try {
             file = new FileReader(path);
@@ -38,25 +50,26 @@ public class JsonTraverser {
     /*
 
      */
-    public static void traverseTree(JsonNode jsonNode) {
+    private List<JsonNode> traverseJsonTree(JsonNode jsonNode) {
 
         if (jsonNode.isArray()) {
             ArrayNode arrayNode = (ArrayNode) jsonNode;
             for (int i = 0; i < arrayNode.size(); i++) {
                 JsonNode element = arrayNode.get(i);
-                traverseTree(element);
+                traverseJsonTree(element);
             }
         } else if (jsonNode.isObject()) {
             Iterator<Map.Entry<String, JsonNode>> field = jsonNode.fields();
             while (field.hasNext()) {
                 Map.Entry<String, JsonNode> currentIterator = field.next();
-                if (currentIterator.getKey().equalsIgnoreCase(EXPECTED_NAME)) {
-                    foundFields.add(currentIterator.getValue());
+                if (currentIterator.getKey().equalsIgnoreCase(FIELD_NAME)) {
+                    FIELD_TREE.add(currentIterator.getValue());
                     continue;
                 }
-                traverseTree(currentIterator.getValue());
+                traverseJsonTree(currentIterator.getValue());
             }
         }
+        return FIELD_TREE;
     }
 
 }
