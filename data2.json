@@ -1,0 +1,33 @@
+{
+  "users": [
+    {
+      "name": "John",
+      "city": "Berlin",
+      "cars": [
+        "audi",
+        "bmw"
+      ],
+      "job": "Teacher",
+      "others": {
+        "cars": "bmw"
+      }
+    },
+    {
+      "name": "Mark",
+      "city": "Oslo",
+      "cars": [
+        "VW",
+        "Toyota"
+      ],
+      "job": "Doctor",
+      "others": {
+        "cars": [
+          "bmw",
+          "Toyota",
+          "volvo",
+          "honda"
+        ]
+      }
+    }
+  ]
+}
