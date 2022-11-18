@@ -17,6 +17,9 @@ public class CheckingConditions extends JsonTraverser {
         this.VALUE = value;
     }
 
+    /*
+    Returns list of expected values
+    */
     public List<String> reedValue(List<JsonNode> jsonTree) {
 
         for (JsonNode currentJson : jsonTree) {
@@ -34,25 +37,16 @@ public class CheckingConditions extends JsonTraverser {
         return RESULT_VALUE;
     }
 
+    /*
+    Counts actual values and out results to console
+    */
     public void createResults() {
-//        JsonTraverser jsonTraverser = new JsonTraverser(JSON_PATH);
         List<JsonNode> jsonTree = readTree(FIELD_NAME);
-//        CheckingConditions checkingConditions = new CheckingConditions(JSON_PATH, FIELD_NAME, VALUE);
         reedValue(jsonTree);
 
-        System.out.println("- found " + jsonTree.size()
-                + " objects with field '" + FIELD_NAME + "'");
-        System.out.println("- found " + RESULT_VALUE.size()
-                + " objects where '"
-                + FIELD_NAME + "' equals '" + VALUE + "'");
+        System.out.println("- found " + jsonTree.size() + " objects with field '" + FIELD_NAME + "'");
+        System.out.println("- found " + RESULT_VALUE.size() + " objects where '" + FIELD_NAME + "' equals '" + VALUE + "'");
 
-    }
-    public int getFieldSize() {
-        return readTree(this.FIELD_NAME).size();
-    }
-
-    public int getValueSize() {
-        return RESULT_VALUE.size();
     }
 
 }

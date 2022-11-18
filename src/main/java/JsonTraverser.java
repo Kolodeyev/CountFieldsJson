@@ -29,7 +29,7 @@ public class JsonTraverser {
     }
 
     /*
-
+    read Json from file
      */
     private JsonNode readJsonFromFile(String path) {
         FileReader file = null;
@@ -48,7 +48,7 @@ public class JsonTraverser {
     }
 
     /*
-
+    This recursive method returns list of values where name of fields is expected
      */
     private List<JsonNode> traverseJsonTree(JsonNode jsonNode) {
 
